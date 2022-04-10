@@ -15,15 +15,21 @@ let results = historyItems.filter((item) =>
 results = sortBy(results, (item) => -fzy.score(fzyQuery, item.content));
 
 const outputItems = results.slice(0, OUTPUT_LIMIT).map((item) => {
+  const positions = fzy.positions(fzyQuery, item.content);
+  const subtitle = item.content.substring(
+    positions[0],
+    positions[positions.length - 1] + 1
+  );
   return {
     uid: item.id,
     title: item.content,
+    subtitle,
     arg: item.content,
     icon: { path: ICON_PATH },
     mods: {
-      ctrl: {
+      cmd: {
         arg: item.content,
-        subtitle: `Copy & Paste ${item.content} `,
+        subtitle: `Copy & Paste '${item.content}' `,
       },
     },
   };
