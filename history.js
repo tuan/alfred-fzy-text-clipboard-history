@@ -2,8 +2,7 @@ import alfy from "alfy";
 import sqlite3 from "sqlite3";
 import { open } from "sqlite";
 
-// Script filter copies Safari History DB file to this location,
-// to get around permission issue
+// Script filter copies Alfred's Clipboard History DB file to this location
 const CLIPBOARD_HISTORY_DB_PATH = "/tmp/alfred-clipboard-history.db";
 const DB_CACHE_KEY_PREFIX = "db_cache_key";
 
