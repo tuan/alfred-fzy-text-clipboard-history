@@ -1,6 +1,6 @@
 {
   "name": "alfred-fzy-text-clipboard-history",
-  "version": "1.1.10",
+  "version": "1.0.0",
   "description": "Use FZY to search text in alfred's clipboard history",
   "repository": "tuan/alfred-fzy-text-clipboard-history",
   "main": "index.js",
