@@ -1,0 +1,32 @@
+{
+  "name": "alfred-fzy-text-clipboard-history",
+  "version": "1.1.10",
+  "description": "Use FZY to search text in alfred's clipboard history",
+  "repository": "tuan/alfred-fzy-text-clipboard-history",
+  "main": "index.js",
+  "exports": "./index.js",
+  "author": "Tuan Nguyen",
+  "keywords": [
+    "alfred",
+    "workflow",
+    "alfy",
+    "fzy",
+    "clipboard",
+    "history",
+    "fuzzy",
+    "search"
+  ],
+  "scripts": {
+    "postinstall": "alfy-init",
+    "preuninstall": "alfy-cleanup"
+  },
+  "license": "MIT",
+  "type": "module",
+  "dependencies": {
+    "alfy": "^0.12.3",
+    "fzy.js": "^0.4.1",
+    "lodash": "^4.17.21",
+    "sqlite": "^4.0.25",
+    "sqlite3": "^5.0.2"
+  }
+}
