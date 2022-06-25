@@ -1,18 +1,12 @@
 import alfy from "alfy";
 import { queryAsync } from "./history.js";
 import fzy from "fzy.js";
-import _ from "lodash";
-const { sortBy } = _;
 
 const ICON_PATH = "./icon.png";
 const OUTPUT_LIMIT = 15;
 
 const fzyQuery = (alfy.input ?? "").trim();
-const historyItems = await queryAsync();
-let results = historyItems.filter((item) =>
-  fzy.hasMatch(fzyQuery, item.content)
-);
-results = sortBy(results, (item) => -fzy.score(fzyQuery, item.content));
+const results = await queryAsync(fzyQuery, OUTPUT_LIMIT);
 
 const outputItems = results.slice(0, OUTPUT_LIMIT).map((item) => {
   const positions = fzy.positions(fzyQuery, item.content);

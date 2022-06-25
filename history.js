@@ -1,6 +1,9 @@
 import alfy from "alfy";
+import _ from "lodash";
+import fzy from "fzy.js";
 import sqlite3 from "sqlite3";
 import { open } from "sqlite";
+const { sortBy } = _;
 
 // Script filter copies Alfred's Clipboard History DB file to this location
 const CLIPBOARD_HISTORY_DB_PATH = "/tmp/alfred-clipboard-history.db";
@@ -11,7 +14,7 @@ const db = await open({
   driver: sqlite3.cached.Database,
 });
 
-export async function queryAsync() {
+async function queryHistoryDbAsync() {
   const dbCacheKey = `${DB_CACHE_KEY_PREFIX}`;
   const cachedData = alfy.cache.get(dbCacheKey);
   if (cachedData != null) {
@@ -34,4 +37,16 @@ export async function queryAsync() {
   alfy.cache.set(dbCacheKey, data, { maxAge: 10000 });
 
   return data;
+}
+
+export async function queryAsync(query, limit) {
+  const historyItems = await queryHistoryDbAsync();
+  if (query === "") {
+    return historyItems.slice(0, limit);
+  }
+
+  const results = historyItems.filter((item) =>
+    fzy.hasMatch(query, item.content)
+  );
+  return sortBy(results, (item) => -fzy.score(query, item.content));
 }
